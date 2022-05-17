@@ -1,0 +1,17 @@
+{
+  "name": "temirlan_finalporject2",
+  "version": "1.0.0",
+  "description": "NodeAJAX",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Temirlan Derbishev",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^4.1.1",
+    "express": "^4.17.1"
+  }
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temirlan_Final_Project_2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function postRequest(elem) {
+            if(elem === "new") {
+                //post request event handler
+                $.post("/api/data", {
+                    //this is what is going to be posted to the web server
+                    operation1: "newCust",
+                },
+                    //callback function to return data as object
+                function(data) {
+                   document.getElementById("custID").value = " ";
+                   document.getElementById("custFirst").value = " ";
+                   document.getElementById("custLast").value = " ";
+                   document.getElementById("custAddress").value = " ";
+                   document.getElementById("custCity").value = " ";
+                   document.getElementById("custProvince").value = " ";
+                   document.getElementById("custPostal").value = " ";
+
+                })
+            }//new ends here
+
+            else if(elem === "add") {
+                $.post("/api/data", {
+                    operation2: "addCust",
+                    custID: document.getElementById("custID").value,
+                    firstN: document.getElementById("custFirst").value,
+                    lastN: document.getElementById("custLast").value,
+                    address: document.getElementById("custAddress").value,
+                    city: document.getElementById("custCity").value,
+                    province: document.getElementById("custProvince").value,
+                    postal: document.getElementById("custPostal").value,
+                },
+                function (data) {
+                    document.getElementById("custFirst").value = data.firstN
+                    document.getElementById("custFirst").value = data.firstN;
+                    document.getElementById("custLast").value = data.lastN;
+                    document.getElementById("custAddress").value = data.address;
+                    document.getElementById("custCity").value = data.city;
+                    document.getElementById("custProvince").value = data.province;
+                    document.getElementById("custPostal").value = data.postal;
+                })
+            }//add ends here
+
+            else if(elem === "find") {
+                $.post("/api/data", {
+                    operation3: "findCust",
+                    custID: document.getElementById("custID").value,
+                },
+                function(data) {
+                    document.getElementById("custID").value = data.custID;
+                    document.getElementById("custFirst").value = data.firstN;
+                    document.getElementById("custLast").value = data.lastN;
+                    document.getElementById("custAddress").value = data.address;
+                    document.getElementById("custCity").value = data.city;
+                    document.getElementById("custProvince").value = data.province;
+                    document.getElementById("custPostal").value = data.postal;
+                })
+            }//find ends here
+
+            else if(elem === "upd") {
+                $.post("/api/data", {
+                    operation4: "updateCust",
+                    custID: document.getElementById("custID").value,
+                    firstN: document.getElementById("custFirst").value,
+                    lastN: document.getElementById("custLast").value,
+                    address: document.getElementById("custAddress").value,
+                    city: document.getElementById("custCity").value,
+                    province: document.getElementById("custProvince").value,
+                    postal: document.getElementById("custPostal").value,
+                },
+                    function (data) {
+                        document.getElementById("custFirst").value = data.firstN
+                        document.getElementById("custFirst").value = data.firstN;
+                        document.getElementById("custLast").value = data.lastN;
+                        document.getElementById("custAddress").value = data.address;
+                        document.getElementById("custCity").value = data.city;
+                        document.getElementById("custProvince").value = data.province;
+                        document.getElementById("custPostal").value = data.postal;
+                    })
+            }//upd ends here
+
+            else if(elem === "del") {
+                let check = window.confirm("Do you want me to delete file?");
+                console.log(check);
+                $.post("/api/data", {
+                    operation5: "deleteCust",
+                    custID: document.getElementById("custID").value,
+                    conf: check
+                },)
+            }//delete ends
+        }//postRequest() ends here
+    </script>
+    <style>
+        *, *:before, *:after {
+            margin:0;
+            padding:0;
+            box-sizing: inherit;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            background-color: #2A2D2E;
+            color:#FFFFFF;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 200px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content {
+            width: 400px;
+            border: 1px solid white;
+            padding: 20px;
+            transition:all 0.3s ease-in-out 0.2s;
+        }
+
+        .content:hover {
+            border: 1px solid violet;
+        }
+
+        input {
+            margin-bottom: 20px;
+            width: 340px;
+            height: 30px;
+        }
+
+        .btn {
+            font-family: 'Roboto', sans-serif;
+            width: 60px;
+            margin-right: 5px;
+            background-color: #2A2D2E;
+            color:white;
+            border: 1px solid white;
+        }
+
+        .btn:hover {
+            background-color: violet;
+            border: 1px solid violet;
+            box-shadow: 0px 0px 40px violet;
+            color:#FFF;
+            transition:all 0.3s ease-in-out 0.2s;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+
+    </style>
+</head>
+<body>
+        <form>
+            <div class="container">
+                <div class="content">
+                    <label>Customer #</label><br>
+                    <input type="text" name="cnum" id="custID"><br>
+                    <label>First Name</label><br>
+                    <input type="text" name="fname" id="custFirst"><br>
+                    <label>Last Name</label><br>
+                    <input type="text" name="lname" id="custLast"><br>
+                    <label>Address</label><br>
+                    <input type="text" name="address" id="custAddress"><br>
+                    <label>City</label><br>
+                    <input type="text" name="city" id="custCity"><br>
+                    <label>Province</label><br>
+                    <input type="text" name="province" id="custProvince"><br>
+                    <label>Postal</label><br>
+                    <input type="text" name="postal" id="custPostal" class="pstl"><br>
+                    <input type="button" onclick="postRequest('new')" id="btnNew" class="btn" value="NEW">
+                    <input type="button" onclick="postRequest('add')" id="btnAdd" class="btn" value="ADD">
+                    <input type="button" onclick="postRequest('find')" id="btnUpdate" class="btn" value="FIND">
+                    <input type="button" onclick="postRequest('upd')" id="btnDelete" class="btn" value="UPDATE">
+                    <input type="button" onclick="postRequest('del')" id="btnFind" class="btn" value="DELETE">
+                </div>
+            </div>
+        </form>
+</body>
+</html>
